@@ -2,7 +2,10 @@
 session_start();
 
 // Login check
-if (!isset($_SESSION['student_id'])) {
+if (!isset($_SESSION['role'])) {
+    session_unset();
+    session_destroy();
+
     header("Location: ../login/login.php");
     exit;
 }
@@ -26,6 +29,8 @@ $student = $result->fetch_assoc();
 
 $stmt->close();
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -67,6 +72,17 @@ $stmt->close();
                 <span class="menu-icon">＋</span>
                 <span>Registration</span>
             </a>
+
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+
+               <div class="menu-title">ADMIN MANAGEMENT</div>
+
+                <a href="create_admin.php" class="menu-link">
+                   <span class="menu-icon">♙</span>
+                  <span>Create Admin</span>
+                 </a>
+
+            <?php endif; ?>
 
             <div class="menu-title">PREFERENCES</div>
 
@@ -162,7 +178,15 @@ $stmt->close();
                 ?>
             </strong>
 
-            <span>Student Account</span>
+            <span>
+                 <?php
+                 echo (($_SESSION['role'] ?? '') === 'admin')
+                      ? 'Admin Account'
+                    : 'Student Account';
+                          ?>
+                   </span>
+
+        
         </div>
 
     </div>
