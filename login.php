@@ -31,12 +31,14 @@ if (isset($_POST['login'])) {
             if (password_verify($password, $user['password'])) {
 
                 session_regenerate_id(true);
-
                 $_SESSION['student_id'] = $user['studentid'];
                 $_SESSION['student_email'] = $user['email'];
+                 $_SESSION['role'] = $user['role'];
 
-                header("Location: ../dashboard/admin_index.php");
-                exit;
+                 header("Location: ../dashboard/admin_index.php");
+                  exit;
+
+                
 
             } else {
 
@@ -123,7 +125,7 @@ if (isset($_POST['login'])) {
                     Remember me
                 </label>
 
-                <a href="#">Forgot Password?</a>
+                <a href="forgot_password.php">Forgot Password?</a>
             </div>
 
             <button type="submit" name="login">
