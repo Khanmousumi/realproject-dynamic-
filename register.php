@@ -68,13 +68,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     }
 
     // 5. Department
-    $validDepartments = ['cse', 'eee', 'bba', 'english', 'law'];
+    $validDepartments = ['cse', 'eee', 'bba', 'administration', 'english', 'law'];
     if (!in_array($department, $validDepartments, true)) {
         $inputError['department'] = 'Please select a department';
     }
 
     // 6. Semester
-    $validSemesters = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th'];
+    $validSemesters = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th','N/A'];
     if (!in_array($semester, $validSemesters, true)) {
         $inputError['semester'] = 'Please select a semester';
     }
@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     }
 
     // Validate and save optional profile photo
-    $profileImage = null;
+    $profileImage = 'default.png';
     $savedImagePath = null;
 
     if (empty($inputError)) {
@@ -334,37 +334,78 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
                 </div>
             </div>
 
-            <h3 class="section-title">Academic Information</h3>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="department">Department</label>
-                    <select id="department" name="department" required>
-                        <option value="">Select Department</option>
-                        <option value="cse" <?php echo $department === 'cse' ? 'selected' : ''; ?>>Computer Science &amp; Engineering</option>
-                        <option value="eee" <?php echo $department === 'eee' ? 'selected' : ''; ?>>Electrical &amp; Electronic Engineering</option>
-                        <option value="bba" <?php echo $department === 'bba' ? 'selected' : ''; ?>>Business Administration</option>
-                        <option value="english" <?php echo $department === 'english' ? 'selected' : ''; ?>>English</option>
-                        <option value="law" <?php echo $department === 'law' ? 'selected' : ''; ?>>Law</option>
-                    </select>
-                    <small class="field-error"><?php echo e($inputError['department'] ?? ''); ?></small>
-                </div>
+<h3 class="section-title">Academic Information</h3>
 
-                <div class="form-group">
-                    <label for="semester">Semester</label>
-                    <select id="semester" name="semester" required>
-                        <option value="">Select Semester</option>
-                        <?php foreach (['1st','2nd','3rd','4th','5th','6th','7th','8th'] as $sem): ?>
-                            <option value="<?php echo e($sem); ?>"
-                                <?php echo $semester === $sem ? 'selected' : ''; ?>>
-                                <?php echo e($sem); ?> Semester
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                    <small class="field-error"><?php echo e($inputError['semester'] ?? ''); ?></small>
-                </div>
-            </div>
+<div class="form-row">
 
+    <div class="form-group">
+        <label for="department">Department</label>
+
+        <select id="department" name="department" required>
+
+            <option value="">Select Department</option>
+
+            <option value="cse" <?php echo $department === 'cse' ? 'selected' : ''; ?>>
+                Computer Science &amp; Engineering
+            </option>
+
+            <option value="eee" <?php echo $department === 'eee' ? 'selected' : ''; ?>>
+                Electrical &amp; Electronic Engineering
+            </option>
+
+            <option value="bba" <?php echo $department === 'bba' ? 'selected' : ''; ?>>
+                Business Administration
+            </option>
+
+            <option value="administration" <?php echo $department === 'administration' ? 'selected' : ''; ?>>
+                Administration
+            </option>
+
+            <option value="english" <?php echo $department === 'english' ? 'selected' : ''; ?>>
+                English
+            </option>
+
+            <option value="law" <?php echo $department === 'law' ? 'selected' : ''; ?>>
+                Law
+            </option>
+
+        </select>
+
+        <small class="field-error">
+            <?php echo e($inputError['department'] ?? ''); ?>
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label for="semester">Semester</label>
+
+        <select id="semester" name="semester" required>
+
+            <option value="">Select Semester</option>
+
+            <?php foreach (['1st','2nd','3rd','4th','5th','6th','7th','8th','N/A'] as $sem): ?>
+
+                <option value="<?php echo e($sem); ?>"
+                    <?php echo $semester === $sem ? 'selected' : ''; ?>>
+
+                    <?php echo e($sem); ?> Semester
+
+                </option>
+
+            <?php endforeach; ?>
+
+        </select>
+
+        <small class="field-error">
+            <?php echo e($inputError['semester'] ?? ''); ?>
+        </small>
+    </div>
+
+</div>
+
+
+            
             <h3 class="section-title">Contact Information</h3>
 
             <div class="form-row">
