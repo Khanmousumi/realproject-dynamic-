@@ -207,10 +207,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         $reg_time = date('Y-m-d H:i:s');
 
         $stmt = $conn->prepare(
-            "INSERT INTO registration
-            (fullname, studentid, dob, gender, department, semester,
-             email, phone, address, password, profile_image, reg_time)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+          "INSERT INTO registration
+(fullname, studentid, dob, gender, department, semester,
+ email, phone, address, password, profile_image, reg_time,
+ role, is_main_admin)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'student', 0)"
         );
 
         if (!$stmt) {
