@@ -34,6 +34,10 @@ if (isset($_POST['login'])) {
                 $_SESSION['student_id'] = $user['studentid'];
                 $_SESSION['student_email'] = $user['email'];
                  $_SESSION['role'] = $user['role'];
+                $_SESSION['is_main_admin'] = (
+    $user['role'] === 'admin' &&
+    (int)$user['is_main_admin'] === 1
+) ? 1 : 0;
 
                  header("Location: ../dashboard/admin_index.php");
                   exit;
